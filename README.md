@@ -86,3 +86,5 @@ git clone https://github.com/0xjaqbek/affirm.git
 
 ### License
 MIT License
+
+(4827), https://affirmshop.web.app/ https://affirmai.xyz/ https://0xjaqbek.github.io/affirm/ for Blowfish
