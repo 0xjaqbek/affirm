@@ -759,13 +759,13 @@ stripe-buy-button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 5px;
     margin: 0;
 }
 
 #about-content p {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 @media screen and (max-width: 480px) {

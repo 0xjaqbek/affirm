@@ -309,35 +309,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentPage = 0;
     const imagesPerPage = 9;
 
-    function updateArtGallery() {
-        const artGrid = document.querySelector('.art-grid');
-        const startIdx = currentPage * imagesPerPage;
-        const endIdx = startIdx + imagesPerPage;
-        const currentImages = artImages.slice(startIdx, endIdx);
-        
-        // Clear existing images
-        artGrid.innerHTML = '';
-        
-        // Add images for current page
-        currentImages.forEach(imgUrl => {
-            const img = document.createElement('img');
-            img.src = imgUrl;
-            img.alt = 'Art piece';
-            img.addEventListener('click', () => {
-                window.open(imgUrl, '_blank');
-            });
-            artGrid.appendChild(img);
+    function getImagesPerPage() {
+    // Check if screen width is mobile-sized (e.g., less than 768px)
+    return window.innerWidth < 768 ? 8 : 9;
+}
+
+// Update the art gallery functionality
+function updateArtGallery() {
+    const artGrid = document.querySelector('.art-grid');
+    const imagesPerPage = getImagesPerPage(); // Get dynamic count
+    const startIdx = currentPage * imagesPerPage;
+    const endIdx = startIdx + imagesPerPage;
+    const currentImages = artImages.slice(startIdx, endIdx);
+    
+    // Clear existing images
+    artGrid.innerHTML = '';
+    
+    // Add images for current page
+    currentImages.forEach(imgUrl => {
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.alt = 'Art piece';
+        img.addEventListener('click', () => {
+            window.open(imgUrl, '_blank');
         });
-        
-        // Update navigation buttons and page indicator
-        const prevButton = document.querySelector('.prev-button');
-        const nextButton = document.querySelector('.next-button');
-        const pageIndicator = document.querySelector('.page-indicator');
-        
-        prevButton.disabled = currentPage === 0;
-        nextButton.disabled = endIdx >= artImages.length;
-        pageIndicator.textContent = `Page ${currentPage + 1}`;
-    }
+        artGrid.appendChild(img);
+    });
+    
+    // Update navigation buttons and page indicator
+    const prevButton = document.querySelector('.prev-button');
+    const nextButton = document.querySelector('.next-button');
+    const pageIndicator = document.querySelector('.page-indicator');
+    
+    prevButton.disabled = currentPage === 0;
+    nextButton.disabled = endIdx >= artImages.length;
+    pageIndicator.textContent = `Page ${currentPage + 1}`;
+}
 
     // Add event listeners for navigation
     document.addEventListener('DOMContentLoaded', () => {
@@ -363,6 +370,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         artButton.addEventListener('click', () => {
             currentPage = 0;
             updateArtGallery();
+        });
+
+        window.addEventListener('resize', () => {
+        currentPage = 0; // Reset to first page when screen size changes
+        updateArtGallery();
         });
     });
 
@@ -587,8 +599,8 @@ function handleDisconnection() {
     }
 
     function updateSolanaPrices() {
-        const polandPriceSOL = (0.47 / solanaPrice).toFixed(2);
-        const worldwidePriceSOL = (0.65 / solanaPrice).toFixed(2);
+        const polandPriceSOL = (0.47 / solanaPrice).toFixed(4);
+        const worldwidePriceSOL = (0.65 / solanaPrice).toFixed(4);
         
         document.querySelectorAll('.solPrice')[0].textContent = polandPriceSOL;
         document.querySelectorAll('.solPrice')[1].textContent = worldwidePriceSOL;
@@ -641,16 +653,17 @@ async function sendPayment(amount) {
             })
         );
 
-        const { blockhash } = await connection.getLatestBlockhash();
+        // Get the latest blockhash
+        const { blockhash } = await connection.getLatestBlockhash('confirmed');
         transaction.recentBlockhash = blockhash;
         transaction.feePayer = currentProvider.publicKey;
 
-        // Use signAndSendTransaction instead of separate sign and send
         try {
+            // Use signAndSendTransaction instead of separate signTransaction and sendRawTransaction
             const { signature } = await currentProvider.signAndSendTransaction(transaction);
             
             // Wait for confirmation
-            const confirmation = await connection.confirmTransaction(signature);
+            const confirmation = await connection.confirmTransaction(signature, 'confirmed');
             
             if (confirmation.value.err) {
                 throw new Error("Transaction failed to confirm");
