@@ -48,9 +48,9 @@
                             buy-button-id="buy_btn_1QOKLnK1N5l6JY7eOroi5V75"
                             publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
                         </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('L')">Buy with Crypto</button>
+                        <button class="crypto-button" onclick="openCryptoModal('olive-L')">Buy with Crypto</button>
                     </div>
-
+                
                     <div class="product-card">
                         <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Olive Affirmation Tee<br>M SIZE</h2>
                         <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Create Your Perfect World</p>
@@ -58,7 +58,28 @@
                             buy-button-id="buy_btn_1QOKNFK1N5l6JY7e6zEMyXOG"
                             publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
                         </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('M')">Buy with Crypto</button>
+                        <button class="crypto-button" onclick="openCryptoModal('olive-M')">Buy with Crypto</button>
+                    </div>
+                
+                    <!-- New White T-shirts -->
+                    <div class="product-card">
+                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>L SIZE</h2>
+                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Embrace Pure Energy</p>
+                        <stripe-buy-button
+                            buy-button-id="buy_btn_1QSG0JK1N5l6JY7ehIiH2UrZ"
+                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                        </stripe-buy-button>
+                        <button class="crypto-button" onclick="openCryptoModal('white-L')">Buy with Crypto</button>
+                    </div>
+                
+                    <div class="product-card">
+                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>M SIZE</h2>
+                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Pure Light Within</p>
+                        <stripe-buy-button
+                            buy-button-id="buy_btn_1QSFtuK1N5l6JY7eVuMSXjGE"
+                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                        </stripe-buy-button>
+                        <button class="crypto-button" onclick="openCryptoModal('white-M')">Buy with Crypto</button>
                     </div>
                 </div>
             </div>
@@ -178,10 +199,12 @@
 
     <form id="cryptoForm" class="crypto-form">
         <div class="form-group">
-            <label>Size:</label>
-            <select name="size" required>
-                <option value="M">M</option>
-                <option value="L">L</option>
+            <label>Style & Size:</label>
+            <select name="product" required>
+                <option value="olive-M">Olive Tee - M</option>
+                <option value="olive-L">Olive Tee - L</option>
+                <option value="white-M">Pure White Tee - M</option>
+                <option value="white-L">Pure White Tee - L</option>
             </select>
         </div>
 
@@ -718,11 +741,11 @@ async function sendEmails(details) {
             });
         }
 
-        function openCryptoModal(size = 'M') {
-            document.getElementById('crypto-modal').style.display = 'block';
-            document.querySelector('select[name="size"]').value = size;
-            fetchSolanaPrice();
-            document.querySelector('.modal-overlay').classList.add('active');
+        function openCryptoModal(product = 'olive-M') {
+        document.getElementById('crypto-modal').style.display = 'block';
+        document.querySelector('select[name="product"]').value = product;
+        fetchSolanaPrice();
+        document.querySelector('.modal-overlay').classList.add('active');
         }
 
         function closeCryptoModal() {
