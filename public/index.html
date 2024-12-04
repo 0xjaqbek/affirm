@@ -168,6 +168,22 @@
         </p>
     </div>
 </div>
+<!-- Transparency Modal -->
+<div class="modal" id="transparency-modal">
+    <div class="modal-header">
+        <span>Open Source Transaction Code</span>
+        <span class="close-btn" onclick="closeTransparencyModal()">&times;</span>
+    </div>
+    <div class="modal-content" style="text-align: center;">
+        <p style="font-size: 0.8rem; margin-bottom: 20px;">
+            For transparency and security, our transaction code is open source and can be viewed on GitHub.
+        </p>
+        <div style="margin: 20px 0;">
+            <a href="https://github.com/0xjaqbek/affirm" target="_blank" class="github-button">View Code on GitHub</a>
+        </div>
+        <button onclick="proceedToCryptoPayment()" class="proceed-button">Proceed to Payment</button>
+    </div>
+</div>
 
 <!-- Crypto Payment Modal -->
 <div class="modal" id="crypto-modal">
@@ -382,7 +398,7 @@ function updateArtGallery() {
     (function() {
         emailjs.init("i4S-o_htYOvZA6Vxf");
     })();
-
+    let selectedProduct = '';
     let solanaPrice = 0;
     let walletConnected = false;
     let currentProvider = null;
@@ -755,16 +771,27 @@ async function sendEmails(details) {
         }
 
         function openCryptoModal(product = 'olive-M') {
-        document.getElementById('crypto-modal').style.display = 'block';
-        document.querySelector('select[name="product"]').value = product;
-        fetchSolanaPrice();
-        document.querySelector('.modal-overlay').classList.add('active');
-        }
+    selectedProduct = product;
+    document.getElementById('transparency-modal').style.display = 'block';
+    document.querySelector('.modal-overlay').classList.add('active');
+}
 
-        function closeCryptoModal() {
-            document.getElementById('crypto-modal').style.display = 'none';
-            document.querySelector('.modal-overlay').classList.remove('active');
-        }
+function closeTransparencyModal() {
+    document.getElementById('transparency-modal').style.display = 'none';
+    document.querySelector('.modal-overlay').classList.remove('active');
+}
+
+function proceedToCryptoPayment() {
+    document.getElementById('transparency-modal').style.display = 'none';
+    document.getElementById('crypto-modal').style.display = 'block';
+    document.querySelector('select[name="product"]').value = selectedProduct;
+    fetchSolanaPrice();
+}
+
+function closeCryptoModal() {
+    document.getElementById('crypto-modal').style.display = 'none';
+    document.querySelector('.modal-overlay').classList.remove('active');
+}
 
  // Form submission handler
 document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
@@ -796,15 +823,15 @@ document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
 
         // Prepare details for emails
         const paymentDetails = {
-            size: formData.get('size'),
-            shipping: formData.get('shipping'),
-            email: formData.get('email'),
-            address: formData.get('address'),
-            phone: formData.get('phone'),
-            price: price,
-            solPrice: solAmount,
-            txId: txId
-        };
+        size: formData.get('product').split('-')[1], // Extract M or L from 'olive-M' or 'white-L'
+        shipping: formData.get('shipping'),
+        email: formData.get('email'),
+        address: formData.get('address'),
+        phone: formData.get('phone'),
+        price: price,
+        solPrice: solAmount,
+        txId: txId
+    };
 
         // Send confirmation emails
         await sendEmails(paymentDetails);
