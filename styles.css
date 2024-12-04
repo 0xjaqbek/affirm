@@ -796,3 +796,16 @@ stripe-buy-button {
 .proceed-button:hover {
     opacity: 0.9;
 }
+
+.glow {
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px var(--gold);
+    }
+    100% {
+        box-shadow: 0 0 20px var(--gold);
+    }
+}

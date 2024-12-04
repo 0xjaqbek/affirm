@@ -570,16 +570,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Set up disconnect listener
             provider.on('disconnect', handleDisconnection);
         }
+
+        // Add glowing effect initially to the "Connect Wallet" button
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        connectWalletBtn.classList.add('glow');
     } catch (error) {
         console.error(error);
     }
 });
 
-function updateWalletStatus(publicKey) {
+// Function to update wallet status and remove glow effect
+async function updateWalletStatus(publicKey) {
     const status = document.getElementById('walletStatus');
-    const connectBtn = document.getElementById('connectWalletBtn');
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    connectWalletBtn.classList.remove('glow'); // Stop glowing when connected
     status.textContent = `Connected: ${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-    connectBtn.style.display = 'none';
+    connectWalletBtn.style.display = 'none';
     status.style.display = 'block';
 }
 
@@ -588,19 +594,24 @@ function handleConnection(publicKey) {
     currentProvider = provider;
     walletConnected = true;
     updateWalletStatus(publicKey);
-    document.querySelector('.crypto-submit').disabled = false;
-    document.querySelector('.crypto-submit').textContent = 'Proceed to Payment';
+    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
+    cryptoSubmitBtn.disabled = false;
+    cryptoSubmitBtn.textContent = 'Proceed to Payment';
 }
 
 // Helper function to handle disconnection
 function handleDisconnection() {
-    currentProvider = null;
-    walletConnected = false;
-    document.querySelector('.crypto-submit').disabled = true;
-    document.querySelector('.crypto-submit').textContent = 'Connect Wallet to Pay';
-    document.getElementById('walletStatus').style.display = 'none';
-    document.getElementById('connectWalletBtn').style.display = 'block';
+    const status = document.getElementById('walletStatus');
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    connectWalletBtn.classList.add('glow'); // Start glowing again when disconnected
+    connectWalletBtn.style.display = 'block';
+    status.style.display = 'none';
+
+    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
+    cryptoSubmitBtn.disabled = true;
+    cryptoSubmitBtn.textContent = 'Connect Wallet to Pay';
 }
+
 
     async function fetchSolanaPrice() {
         try {
