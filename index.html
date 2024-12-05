@@ -627,8 +627,8 @@ function handleDisconnection() {
     }
 
     function updateSolanaPrices() {
-        const polandPriceSOL = (0.47 / solanaPrice).toFixed(4);
-        const worldwidePriceSOL = (0.65 / solanaPrice).toFixed(4);
+        const polandPriceSOL = (47 / solanaPrice).toFixed(4);
+        const worldwidePriceSOL = (65 / solanaPrice).toFixed(4);
         
         document.querySelectorAll('.solPrice')[0].textContent = polandPriceSOL;
         document.querySelectorAll('.solPrice')[1].textContent = worldwidePriceSOL;
