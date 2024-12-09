@@ -817,7 +817,7 @@ document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
     showLoading(true);
     const formData = new FormData(e.target);
     const shipping = formData.get('shipping');
-    const price = shipping === 'poland' ? 0.47 : 0.65;
+    const price = shipping === 'poland' ? 47 : 65;
     
     const solAmount = price / solanaPrice;
     const lamports = Math.round(solAmount * solanaWeb3.LAMPORTS_PER_SOL);
