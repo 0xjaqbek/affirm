@@ -190,6 +190,24 @@ body {
     margin-bottom: 15px;
     text-align: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.disconnect-wallet-btn {
+    display: none;
+    padding: 8px 16px;
+    background: var(--royal);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.disconnect-wallet-btn:hover {
+    background: var(--olive);
 }
 
 .connect-wallet-btn {
@@ -848,4 +866,212 @@ stripe-buy-button {
 .currency-label {
     display: inline-block;
     min-width: 40px;
+}
+
+.wallet-section {
+    position: relative;
+}
+
+.wallet-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+
+    z-index: 1000;
+    background: white;
+    border: 1px solid var(--royal);
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 200px;
+}
+
+.wallet-menu.active {
+    display: block;
+}
+
+.wallet-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.wallet-option:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.wallet-option img {
+    width: 24px;
+    height: 24px;
+}
+
+#walletconnect-wrapper {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+.walletconnect-modal__base {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+.modal {
+    z-index: 9000;
+}
+
+.modal-overlay {
+    z-index: 8999;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.payment-options button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.payment-options button:first-child {
+    background-color: var(--royal);
+    color: white;
+}
+
+.payment-options button:last-child {
+    background-color: #627eea;  /* Ethereum blue */
+    color: white;
+}
+
+.payment-options button:hover {
+    opacity: 0.9;
+}
+
+#connectWalletBtn.ethereum {
+    background-color: #627eea;
+    color: white;
+}
+
+.eth-price {
+    color: #627eea;
+    font-weight: bold;
+}
+
+.connect-wallet-btn.ethereum {
+    background-color: #627eea;
+    color: white;
+}
+
+.ethereum .wallet-status {
+    color: #627eea;
+}
+
+.disconnect-wallet-btn {
+    background: var(--royal);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.disconnect-wallet-btn:hover {
+    background: #ff4444;  /* Red color on hover */
+}
+
+.chain-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border: 2px solid var(--royal);
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chain-button:hover {
+    background: var(--royal);
+    color: white;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-items {
+    position: relative;
+    width: 100%;
+}
+
+.product-card {
+    display: none;
+    width: 100%;
+    transition: transform 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.product-card.active {
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--royal);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: var(--royal);
+    border-radius: 50%;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.dot.active {
+    opacity: 1;
 }

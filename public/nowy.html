@@ -10,8 +10,13 @@
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@solflare-wallet/sdk"></script>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="https://cdn.ethers.org/lib/ethers-5.7.2.umd.min.js" 
+    type="application/javascript"
+    crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/buffer@5.7.1/index.min.js"></script>
+    <script>
+    window.Buffer = window.Buffer || Buffer;
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -43,45 +48,61 @@
                 </div>
 
                 <div id="shop-content" class="product-container">
-                    <div class="product-card">
-                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Olive Affirmation Tee<br>L SIZE</h2>
-                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Manifest Your Reality</p>
-                        <stripe-buy-button
-                            buy-button-id="buy_btn_1QOKLnK1N5l6JY7eOroi5V75"
-                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
-                        </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('olive-L')">Buy with Crypto</button>
-                    </div>
-                
-                    <div class="product-card">
-                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Olive Affirmation Tee<br>M SIZE</h2>
-                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Create Your Perfect World</p>
-                        <stripe-buy-button
-                            buy-button-id="buy_btn_1QOKNFK1N5l6JY7e6zEMyXOG"
-                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
-                        </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('olive-M')">Buy with Crypto</button>
-                    </div>
-                
-                    <!-- New White T-shirts -->
-                    <div class="product-card">
-                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>L SIZE</h2>
-                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Embrace Pure Energy</p>
-                        <stripe-buy-button
-                            buy-button-id="buy_btn_1QSG0JK1N5l6JY7ehIiH2UrZ"
-                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
-                        </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('white-L')">Buy with Crypto</button>
-                    </div>
-                
-                    <div class="product-card">
-                        <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>M SIZE</h2>
-                        <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Pure Light Within</p>
-                        <stripe-buy-button
-                            buy-button-id="buy_btn_1QSFtuK1N5l6JY7eVuMSXjGE"
-                            publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
-                        </stripe-buy-button>
-                        <button class="crypto-button" onclick="openCryptoModal('white-M')">Buy with Crypto</button>
+                    <div class="carousel">
+                        <!-- Navigation Buttons -->
+                        <button class="carousel-btn prev" onclick="prevProduct()">&lt;</button>
+                        <button class="carousel-btn next" onclick="nextProduct()">&gt;</button>
+                        
+                        <!-- Product Cards Container -->
+                        <div class="carousel-items">
+                            <div class="product-card active">
+                                <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Olive Affirmation Tee<br>L SIZE</h2>
+                                <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Manifest Your Reality</p>
+                                <stripe-buy-button
+                                    buy-button-id="buy_btn_1QOKLnK1N5l6JY7eOroi5V75"
+                                    publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                                </stripe-buy-button>
+                                <button class="crypto-button" onclick="openCryptoModal('olive-L')">Buy with Crypto</button>
+                            </div>
+                            
+                            <div class="product-card">
+                                <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Olive Affirmation Tee<br>M SIZE</h2>
+                                <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Create Your Perfect World</p>
+                                <stripe-buy-button
+                                    buy-button-id="buy_btn_1QOKNFK1N5l6JY7e6zEMyXOG"
+                                    publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                                </stripe-buy-button>
+                                <button class="crypto-button" onclick="openCryptoModal('olive-M')">Buy with Crypto</button>
+                            </div>
+                            
+                            <div class="product-card">
+                                <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>L SIZE</h2>
+                                <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Embrace Pure Energy</p>
+                                <stripe-buy-button
+                                    buy-button-id="buy_btn_1QSG0JK1N5l6JY7ehIiH2UrZ"
+                                    publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                                </stripe-buy-button>
+                                <button class="crypto-button" onclick="openCryptoModal('white-L')">Buy with Crypto</button>
+                            </div>
+                            
+                            <div class="product-card">
+                                <h2 style="font-size: 0.8rem; color: var(--olive); margin-bottom: 10px;">Pure White Affirmation Tee<br>M SIZE</h2>
+                                <p style="font-size: 0.6rem; color: #666; margin-bottom: 15px;">Pure Light Within</p>
+                                <stripe-buy-button
+                                    buy-button-id="buy_btn_1QSFtuK1N5l6JY7eVuMSXjGE"
+                                    publishable-key="pk_live_51NKzNNK1N5l6JY7eRtrH45aVF2rzyLRX2Zwh6OecCpuMClGU7MQNAVxHmkpJ7ie7fDoG1rSfmmpVArvFlnNM7UQ700kJvepheu">
+                                </stripe-buy-button>
+                                <button class="crypto-button" onclick="openCryptoModal('white-M')">Buy with Crypto</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination Dots -->
+                        <div class="carousel-dots">
+                            <span class="dot active" onclick="gotoProduct(0)"></span>
+                            <span class="dot" onclick="gotoProduct(1)"></span>
+                            <span class="dot" onclick="gotoProduct(2)"></span>
+                            <span class="dot" onclick="gotoProduct(3)"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,26 +192,6 @@
         </p>
     </div>
 </div>
-
-<div class="modal" id="payment-selection-modal">
-    <div class="modal-header">
-        <span>Select Payment Method</span>
-        <span class="close-btn" onclick="closePaymentSelectionModal()">&times;</span>
-    </div>
-    <div class="modal-content">
-        <div class="payment-options">
-            <button class="payment-option" onclick="selectPayment('sol')">
-                <img src="./solana.png" alt="Solana" width="40">
-                <span>Pay with SOL</span>
-            </button>
-            <button class="payment-option" onclick="selectPayment('eth')">
-                <img src="./ethereum.png" alt="Ethereum" width="40">
-                <span>Pay with ETH</span>
-            </button>
-        </div>
-    </div>
-</div>
-
 <!-- Transparency Modal -->
 <div class="modal" id="transparency-modal">
     <div class="modal-header">
@@ -208,6 +209,96 @@
     </div>
 </div>
 
+<!-- Chain Selection Modal -->
+<div class="modal" id="chain-selection-modal">
+    <div class="modal-header">
+        <span>Select Blockchain</span>
+        <span class="close-btn" onclick="closeChainModal()">&times;</span>
+    </div>
+    <div class="modal-content" style="text-align: center;">
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <button onclick="selectChain('solana')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./solana.png" alt="Solana" style="width: 40px; height: 40px;">
+                    <span>Solana</span>
+                </div>
+            </button>
+            <button onclick="selectChain('ethereum')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./ethereum.png" alt="EVM" style="width: 40px; height: 40px;">
+                    <span>EVM</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Currency Selection Modal -->
+<div class="modal" id="currency-selection-modal">
+    <div class="modal-header">
+        <span>Select Payment Currency</span>
+        <span class="close-btn" onclick="closeCurrencyModal()">&times;</span>
+    </div>
+    <div class="modal-content" style="text-align: center;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 600px; margin: 0 auto;">
+            <button onclick="selectCurrency('native')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img id="native-currency-img" src="" alt="Native" style="width: 40px; height: 40px;">
+                    <span id="native-currency-text">Native Token</span>
+                </div>
+            </button>
+            <button onclick="selectCurrency('usdt')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./usdt.png" alt="USDT" style="width: 40px; height: 40px;">
+                    <span>USDT</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- L2 Selection Modal -->
+<div class="modal" id="l2-selection-modal">
+    <div class="modal-header">
+        <span>Select EVM Chain</span>
+        <span class="close-btn" onclick="closeL2Modal()">&times;</span>
+    </div>
+    <div class="modal-content" style="text-align: center;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 600px; margin: 0 auto;">
+            <button onclick="selectL2('ethereum')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./ethereum.png" alt="Ethereum" style="width: 40px; height: 40px;">
+                    <span>Ethereum</span>
+                </div>
+            </button>
+            <button onclick="selectL2('arbitrum')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./arbitrum.png" alt="Arbitrum" style="width: 40px; height: 40px;">
+                    <span>Arbitrum</span>
+                </div>
+            </button>
+            <button onclick="selectL2('optimism')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./optimism.png" alt="Optimism" style="width: 40px; height: 40px;">
+                    <span>Optimism</span>
+                </div>
+            </button>
+            <button onclick="selectL2('polygon')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./polygon.png" alt="Polygon" style="width: 40px; height: 40px;">
+                    <span>Polygon</span>
+                </div>
+            </button>
+            <button onclick="selectL2('base')" style="padding: 15px 30px; margin: 10px; background: var(--royal); border: none; border-radius: 5px; color: white; cursor: pointer;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <img src="./base.webp" alt="Base" style="width: 40px; height: 40px;">
+                    <span>Base</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Crypto Payment Modal -->
 <div class="modal" id="crypto-modal">
     <div class="modal-header">
@@ -218,6 +309,9 @@
     <div class="wallet-section">
         <button id="connectWalletBtn" class="connect-wallet-btn">
             Connect Wallet
+        </button>
+        <button id="disconnectWalletBtn" class="disconnect-wallet-btn" style="display: none;">
+            Disconnect Wallet
         </button>
         <div id="walletMenu" class="wallet-menu">
             <div class="wallet-option" onclick="connectWallet('phantom')">
@@ -232,10 +326,42 @@
                 <img src="/backpack.png" alt="Backpack">
                 Backpack
             </div>
+            <div class="wallet-option" onclick="connectWallet('metamask')">
+                <img src="./MetaMask.png" alt="MetaMask">
+                MetaMask
+            </div>
+            <div class="wallet-option" onclick="connectWallet('rabby')">
+                <img src="./rabby.png" alt="Rabby">
+                Rabby
+            </div>
+            <div class="wallet-option" onclick="connectWallet('coinbase')">
+                <img src="./coinbase.png" alt="Coinbase">
+                Coinbase
+            </div>
+            <div class="wallet-option" onclick="connectWallet('trust')">
+                <img src="./trust.png" alt="Trust">
+                Trust
+            </div>
         </div>
         <div id="walletStatus" class="wallet-status"></div>
     </div>
 
+    <div class="modal" id="summary-modal">
+        <div class="modal-header">
+            <span>Order Summary</span>
+            <span class="close-btn" onclick="closeSummaryModal()">&times;</span>
+        </div>
+        <div class="modal-content">
+            <p id="summary-product">Product: </p>
+            <p id="summary-shipping">Shipping: </p>
+            <p id="summary-price">Total Price: </p>
+            <p id="summary-currency">Currency: </p>
+            <p id="summary-amount">Amount: </p>
+            <button class="confirm-payment-btn" type="button" onclick="confirmPayment()">Confirm and Pay</button>
+        </div>
+    </div>
+    <div class="modal-overlay"></div>
+  
     <form id="cryptoForm" class="crypto-form">
         <div class="form-group">
             <label>Style & Size:</label>
@@ -271,12 +397,26 @@
         </div>
 
         <div class="price-info">
-            <div>Current Solana Price: $<span id="solanaPrice">0</span></div>
+            <div class="current-prices">
+                <div>Current Solana Price: $<span id="solanaPrice">0</span></div>
+                <div>Current Ethereum Price: $<span id="ethPrice">0</span></div>
+                <div>Current MATIC Price: $<span id="maticPrice">0</span></div>
+            </div>
             <div id="polandPrice" class="shipping-price active">
-                Price with shipping to Poland: $47 (≈ <span class="solPrice">0</span> SOL)
+                Price with shipping to Poland: $47 
+                <div class="crypto-amounts">
+                    <span class="price-sol">(<span class="solPrice">0</span> SOL)</span>
+                    <span class="price-eth">(<span class="ethPrice">0</span> ETH)</span>
+                    <span class="price-matic">(<span class="maticPrice">0</span> MATIC)</span>
+                </div>
             </div>
             <div id="worldwidePrice" class="shipping-price">
-                Price with worldwide shipping: $65 (≈ <span class="solPrice">0</span> SOL)
+                Price with worldwide shipping: $65 
+                <div class="crypto-amounts">
+                    <span class="price-sol">(<span class="solPrice">0</span> SOL)</span>
+                    <span class="price-eth">(<span class="ethPrice">0</span> ETH)</span>
+                    <span class="price-matic">(<span class="maticPrice">0</span> MATIC)</span>
+                </div>
             </div>
         </div>
 
@@ -289,26 +429,22 @@
 </div>
 
 <script>
-// Global variables
-let provider = null;
-let web3Provider = null;
-let selectedProduct = '';
-let solanaPrice = 0;
-let ethPrice = 0;
-let walletConnected = false;
-let currentProvider = null;
-let selectedPaymentMethod = '';
+    
 
-const SELLER_WALLET = "ARSHLvfCv1WY244tPgkLYnB5futRbKQZXK6bk7YigPnJ";
-const SELLER_WALLET_ETH = "YOUR_ETH_WALLET_ADDRESS"; // Replace with your ETH wallet
 
-// Initialize EmailJS
-(function() {
-    emailjs.init("i4S-o_htYOvZA6Vxf");
-})();
-
-// Phantom provider getter
-function getProvider() {
+    const state = {
+    provider: null,
+    currentChain: null,
+    walletConnected: false,
+    prices: {
+        solana: 0,
+        ethereum: 0,
+        matic: 0 
+    }
+};
+    let provider = null;
+    // Function to get the Phantom provider
+    function getProvider() {
     if ('phantom' in window) {
         const provider = window.phantom?.solana;
         if (provider?.isPhantom) {
@@ -318,156 +454,233 @@ function getProvider() {
     return null;
 }
 
-// Initialize WalletConnect
-async function initializeWalletConnect() {
-    const provider = new WalletConnectProvider({
-        infuraId: "YOUR_INFURA_ID",
-        rpc: {
-            1: "https://mainnet.infura.io/v3/YOUR_INFURA_ID",
-            137: "https://polygon-rpc.com", // Polygon
-            56: "https://bsc-dataseed.binance.org", // BSC
-            42161: "https://arb1.arbitrum.io/rpc", // Arbitrum
-            10: "https://mainnet.optimism.io" // Optimism
-        },
-        qrcode: true,
-        chainId: 1
-    });
-    return provider;
+
+        // Art gallery functionality
+    const artImages = [
+    "./images/2d.png",
+    "./images/140858.jpg",
+    "./images/154706.png",
+    "./images/154959.png",
+    "./images/155301.png",
+    "./images/155800.png",
+    "./images/160144.png",
+    "./images/affirm_knight.png",
+    "./images/AFFIRM3_1.png",
+    "./images/affirmwowods.png",
+    "./images/ai16z_eliza_affirm_store3.png",
+    "./images/CHILL GUY W T-SHIRT bez tła 2.png",
+    "./images/dasha_terminal 1.png",
+    "./images/ELIZA_ai16z_1.png",
+    "./images/ELIZA_ai16z_1_1.png",
+    "./images/IMG_6966.JPG",
+    "./images/IMG_7004.JPG",
+    "./images/IMG_8350.HEIC",
+    "./images/knight27_meme_.jpg",
+    "./images/red1_affirm_text.jpg",
+    "./images/thereisnoarmor.jpeg",
+    "./images/zerebro.png"
+    ];
+
+    let currentPage = 0;
+    const imagesPerPage = 9;
+
+    function getImagesPerPage() {
+    // Check if screen width is mobile-sized (e.g., less than 768px)
+    return window.innerWidth < 768 ? 8 : 9;
 }
 
-// Main functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const modalOverlay = document.querySelector('.modal-overlay');
-    const modals = document.querySelectorAll('.modal');
-    const buttons = document.querySelectorAll('.button');
-    const closeButtons = document.querySelectorAll('.close-btn');
-    const toggleBtn = document.getElementById('toggle-btn');
-    let isShopVisible = false;
+    // Add event listeners for navigation
+    function updateArtGallery() {
+    const artGrid = document.querySelector('.art-grid');
+    const imagesPerPage = getImagesPerPage();
+    const startIdx = currentPage * imagesPerPage;
+    const endIdx = startIdx + imagesPerPage;
+    const currentImages = artImages.slice(startIdx, endIdx);
+    
+    artGrid.innerHTML = '';
+    
+    currentImages.forEach(imgUrl => {
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.alt = 'Art piece';
+        img.addEventListener('click', () => {
+            window.open(imgUrl, '_blank');
+        });
+        artGrid.appendChild(img);
+    });
+    
+    const prevButton = document.querySelector('.prev-button');
+    const nextButton = document.querySelector('.next-button');
+    const pageIndicator = document.querySelector('.page-indicator');
+    
+    prevButton.disabled = currentPage === 0;
+    nextButton.disabled = endIdx >= artImages.length;
+    pageIndicator.textContent = `Page ${currentPage + 1}`;
+}
 
-    // Toggle main content
-    function toggleContent() {
-        const aboutContent = document.getElementById('about-content');
-        const shopContent = document.getElementById('shop-content');
+function getImagesPerPage() {
+    return window.innerWidth < 768 ? 8 : 9;
+}
 
-        if (isShopVisible) {
-            shopContent.style.display = 'none';
-            aboutContent.style.display = 'block';
-            toggleBtn.textContent = 'Shop.';
-        } else {
-            aboutContent.style.display = 'none';
-            shopContent.style.display = 'block';
-            toggleBtn.textContent = 'About.';
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("i4S-o_htYOvZA6Vxf");
+    })();
+    
+    let selectedProduct = '';
+    let solanaPrice = 0;
+    let ethPrice = 0;
+    let maticPrice = 0;
+    const ETH_SELLER_WALLET = "0x4C14EbC1ee74964593632eCaD6AA967f9A023a9F";
+    let walletConnected = false;
+    let currentProvider = null;
+    const SELLER_WALLET = "ARSHLvfCv1WY244tPgkLYnB5futRbKQZXK6bk7YigPnJ";
+
+    const CONFIG = {
+        CHAIN_IDS: {
+        ethereum: 1,
+        arbitrum: 42161,
+        optimism: 10,
+        polygon: 137,
+        base: 8453,
+    },
+    USDT_ADDRESSES: {
+        ethereum: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        polygon: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+        arbitrum: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+        optimism: "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+        base: "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+        solana: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB" // Solana USDT mint address
+    },
+    RPC_ENDPOINTS: {
+        solana: [
+            'https://capable-solemn-sailboat.solana-mainnet.quiknode.pro/9c09d2b67638f50dc00ea9b774f26545dc059870',
+            'https://api.mainnet-beta.solana.com',
+            'https://solana-api.projectserum.com',
+            'https://rpc.ankr.com/solana'
+        ],
+        ethereum: ['https://eth-mainnet.g.alchemy.com/v2/vT61F0P-FLbX--SpVeYKRyGFpLwoo7SD'],
+        arbitrum: ['https://arb-mainnet.g.alchemy.com/v2/vT61F0P-FLbX--SpVeYKRyGFpLwoo7SD'],
+        optimism: ['https://opt-mainnet.g.alchemy.com/v2/vT61F0P-FLbX--SpVeYKRyGFpLwoo7SD'],
+        polygon: ['https://polygonzkevm-mainnet.g.alchemy.com/v2/vT61F0P-FLbX--SpVeYKRyGFpLwoo7SD'],
+        base: ['https://base-mainnet.g.alchemy.com/v2/vT61F0P-FLbX--SpVeYKRyGFpLwoo7SD']
+    },
+    WALLETS: {
+        solana: ['phantom', 'solflare', 'backpack'],
+        ethereum: ['metamask', 'rabby', 'coinbase', 'trust']
+    },
+    ADDRESSES: {
+        solana: SELLER_WALLET,
+        ethereum: ETH_SELLER_WALLET,
+        arbitrum: ETH_SELLER_WALLET,  // Use same address for all EVM chains
+        optimism: ETH_SELLER_WALLET,
+        polygon: ETH_SELLER_WALLET,
+        base: ETH_SELLER_WALLET
+    }
+};
+
+    // Main functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const modals = document.querySelectorAll('.modal');
+        const buttons = document.querySelectorAll('.button');
+        const closeButtons = document.querySelectorAll('.close-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
+        let isShopVisible = false;
+
+        // Toggle main content
+        function toggleContent() {
+            const aboutContent = document.getElementById('about-content');
+            const shopContent = document.getElementById('shop-content');
+
+            if (isShopVisible) {
+                shopContent.style.display = 'none';
+                aboutContent.style.display = 'block';
+                toggleBtn.textContent = 'Shop.';
+            } else {
+                aboutContent.style.display = 'none';
+                shopContent.style.display = 'block';
+                toggleBtn.textContent = 'About.';
+            }
+
+            isShopVisible = !isShopVisible;
         }
 
-        isShopVisible = !isShopVisible;
-    }
+        toggleBtn.addEventListener('click', toggleContent);
 
-    toggleBtn.addEventListener('click', toggleContent);
-
-    // Modal handling
-    function openModal(modalId) {
-        const modal = document.getElementById(`${modalId}-modal`);
-        modalOverlay.classList.add('active');
-        modal.classList.add('active');
-    }
-
-    function closeAllModals() {
-        modalOverlay.classList.remove('active');
-        modals.forEach(modal => modal.classList.remove('active'));
-    }
-
-    buttons.forEach(button => {
-        if (button.dataset.modal) {
-            button.addEventListener('click', () => {
-                openModal(button.dataset.modal);
-            });
+        // Modal handling
+        function openModal(modalId) {
+            const modal = document.getElementById(`${modalId}-modal`);
+            modalOverlay.classList.add('active');
+            modal.classList.add('active');
         }
-    });
 
-    closeButtons.forEach(button => {
-        button.addEventListener('click', closeAllModals);
-    });
+        function closeAllModals() {
+            modalOverlay.classList.remove('active');
+            modals.forEach(modal => modal.classList.remove('active'));
+        }
 
-    modalOverlay.addEventListener('click', closeAllModals);
-
-    // Initialize Stripe buttons
-    if (window.Stripe) {
-        document.querySelectorAll('stripe-buy-button').forEach(button => {
-            try {
-                button.mount();
-            } catch (error) {
-                console.error('Error mounting Stripe button:', error);
+        buttons.forEach(button => {
+            if (button.dataset.modal) {
+                button.addEventListener('click', () => {
+                    openModal(button.dataset.modal);
+                });
             }
         });
-    }
-});
 
-// Crypto payment functions
+        closeButtons.forEach(button => {
+            button.addEventListener('click', closeAllModals);
+        });
+
+        modalOverlay.addEventListener('click', closeAllModals);
+
+        // Initialize Stripe buttons
+        if (window.Stripe) {
+            document.querySelectorAll('stripe-buy-button').forEach(button => {
+                try {
+                    button.mount();
+                } catch (error) {
+                    console.error('Error mounting Stripe button:', error);
+                }
+            });
+        }
+
+        // Wallet menu functionality
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const walletMenu = document.getElementById('walletMenu');
+
+        connectWalletBtn.addEventListener('click', () => {
+            walletMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!connectWalletBtn.contains(e.target) && !walletMenu.contains(e.target)) {
+                walletMenu.classList.remove('active');
+            }
+        });
+
+        walletMenu.addEventListener('click', () => {
+            walletMenu.classList.remove('active');
+        });
+    });
+
+    // Crypto payment functions
 async function connectWallet(walletName) {
     try {
-        if (selectedPaymentMethod === 'eth') {
-            switch(walletName) {
-                case 'metamask':
-                    if (typeof window.ethereum === 'undefined') {
-                        window.open('https://metamask.io/download.html', '_blank');
-                        throw new Error("Please install MetaMask");
-                    }
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-                    currentProvider = web3Provider;
-                    walletConnected = true;
-                    updateWalletStatus(accounts[0]);
-                    break;
-
-                case 'walletconnect':
-                    const wcProvider = await initializeWalletConnect();
-                    await wcProvider.enable();
-                    web3Provider = new ethers.providers.Web3Provider(wcProvider);
-                    currentProvider = web3Provider;
-                    walletConnected = true;
-                    updateWalletStatus(wcProvider.accounts[0]);
-                    
-                    wcProvider.on("disconnect", () => {
-                        handleDisconnection();
-                    });
-                    break;
-            }
-        } else {
-            switch(walletName) {
-                case 'phantom':
-                    const phantomProvider = getProvider();
-                    if (!phantomProvider) {
-                        window.open('https://phantom.app/', '_blank');
-                        throw new Error("Please install Phantom wallet");
-                    }
-                    await phantomProvider.connect();
-                    currentProvider = phantomProvider;
-                    walletConnected = true;
-                    updateWalletStatus(phantomProvider.publicKey.toString());
-                    break;
-
-                case 'solflare':
-                    if (!window?.solflare?.isSolflare) {
-                        window.open('https://solflare.com/', '_blank');
-                        throw new Error("Please install Solflare wallet");
-                    }
-                    const solflareResp = await window.solflare.connect();
-                    currentProvider = window.solflare;
-                    walletConnected = true;
-                    updateWalletStatus(solflareResp.publicKey.toString());
-                    break;
-
-                case 'backpack':
-                    if (!window?.backpack?.isBackpack) {
-                        window.open('https://backpack.app/', '_blank');
-                        throw new Error("Please install Backpack wallet");
-                    }
-                    const backpackResp = await window.backpack.connect();
-                    currentProvider = window.backpack;
-                    walletConnected = true;
-                    updateWalletStatus(backpackResp.publicKey.toString());
-                    break;
-            }
+        switch(walletName) {
+            case 'phantom':
+            case 'solflare':
+            case 'backpack':
+                await connectSolanaWallet(walletName);
+                break;
+            case 'metamask':
+            case 'rabby':
+            case 'coinbase':
+            case 'trust':
+                await connectEthereumWallet(walletName);
+                break;
+            default:
+                throw new Error("Unsupported wallet");
         }
 
         document.querySelector('.crypto-submit').disabled = false;
@@ -478,159 +691,585 @@ async function connectWallet(walletName) {
     }
 }
 
-// Payment selection and modal flow
-function openCryptoModal(product = 'olive-M') {
-    selectedProduct = product;
-    document.getElementById('payment-selection-modal').style.display = 'block';
-    document.querySelector('.modal-overlay').classList.add('active');
-}
 
-function closePaymentSelectionModal() {
-    document.getElementById('payment-selection-modal').style.display = 'none';
-    document.querySelector('.modal-overlay').classList.remove('active');
-}
-
-async function selectPayment(method) {
-    selectedPaymentMethod = method;
-    closePaymentSelectionModal();
+function updatePriceDisplay() {
+    const polandPrice = 47;
+    const worldwidePrice = 65;
     
-    updateWalletMenu(method);
-    
-    if (method === 'eth') {
-        document.querySelector('.price-info').innerHTML = `
-            <div>Current ETH Price: $<span id="ethPrice">0</span></div>
-            <div id="polandPrice" class="shipping-price active">
-                Price with shipping to Poland: $47 (≈ <span class="ethPrice">0</span> ETH)
-            </div>
-            <div id="worldwidePrice" class="shipping-price">
-                Price with worldwide shipping: $65 (≈ <span class="ethPrice">0</span> ETH)
-            </div>
-        `;
-        await fetchEthPrice();
-    } else {
-        document.querySelector('.price-info').innerHTML = `
-            <div>Current Solana Price: $<span id="solanaPrice">0</span></div>
-            <div id="polandPrice" class="shipping-price active">
-                Price with shipping to Poland: $47 (≈ <span class="solPrice">0</span> SOL)
-            </div>
-            <div id="worldwidePrice" class="shipping-price">
-                Price with worldwide shipping: $65 (≈ <span class="solPrice">0</span> SOL)
-            </div>
-        `;
-        await fetchSolanaPrice();
-    }
-    
-    document.getElementById('transparency-modal').style.display = 'block';
-}
-
-function updateWalletMenu(method) {
-    const walletMenu = document.getElementById('walletMenu');
-    if (method === 'eth') {
-        walletMenu.innerHTML = `
-            <div class="wallet-option" onclick="connectWallet('metamask')">
-                <img src="./metamask.png" alt="MetaMask">
-                MetaMask
-            </div>
-            <div class="wallet-option" onclick="connectWallet('walletconnect')">
-                <img src="./walletconnect.png" alt="WalletConnect">
-                Other Wallets
-            </div>
-        `;
-    } else {
-        walletMenu.innerHTML = `
-            <div class="wallet-option" onclick="connectWallet('phantom')">
-                <img src="./phantom.png" alt="Phantom">
-                Phantom
-            </div>
-            <div class="wallet-option" onclick="connectWallet('solflare')">
-                <img src="./solflare.png" alt="Solflare">
-                Solflare
-            </div>
-            <div class="wallet-option" onclick="connectWallet('backpack')">
-                <img src="./backpack.png" alt="Backpack">
-                Backpack
-            </div>
-        `;
-    }
-}
-
-// Price fetching functions
-async function fetchSolanaPrice() {
     try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
+        // Calculate prices for each currency
+        const prices = {
+            sol: {
+                poland: solanaPrice > 0 ? (polandPrice / solanaPrice).toFixed(4) : '0',
+                worldwide: solanaPrice > 0 ? (worldwidePrice / solanaPrice).toFixed(4) : '0'
+            },
+            eth: {
+                poland: ethPrice > 0 ? (polandPrice / ethPrice).toFixed(4) : '0',
+                worldwide: ethPrice > 0 ? (worldwidePrice / ethPrice).toFixed(4) : '0'
+            },
+            matic: {
+                poland: maticPrice > 0 ? (polandPrice / maticPrice).toFixed(4) : '0',
+                worldwide: maticPrice > 0 ? (worldwidePrice / maticPrice).toFixed(4) : '0'
+            }
+        };
+
+        // Update Poland prices
+        document.querySelectorAll('#polandPrice .solPrice').forEach(el => {
+            if (el) el.textContent = prices.sol.poland;
+        });
+        document.querySelectorAll('#polandPrice .ethPrice').forEach(el => {
+            if (el) el.textContent = prices.eth.poland;
+        });
+        document.querySelectorAll('#polandPrice .maticPrice').forEach(el => {
+            if (el) el.textContent = prices.matic.poland;
+        });
+
+        // Update Worldwide prices
+        document.querySelectorAll('#worldwidePrice .solPrice').forEach(el => {
+            if (el) el.textContent = prices.sol.worldwide;
+        });
+        document.querySelectorAll('#worldwidePrice .ethPrice').forEach(el => {
+            if (el) el.textContent = prices.eth.worldwide;
+        });
+        document.querySelectorAll('#worldwidePrice .maticPrice').forEach(el => {
+            if (el) el.textContent = prices.matic.worldwide;
+        });
+
+        // Show/hide relevant price displays based on selected chain
+        const solSpans = document.querySelectorAll('.price-sol');
+        const ethSpans = document.querySelectorAll('.price-eth');
+        const maticSpans = document.querySelectorAll('.price-matic');
+
+        switch(state.currentChain) {
+            case 'solana':
+                solSpans.forEach(span => span.style.display = 'block');
+                ethSpans.forEach(span => span.style.display = 'none');
+                maticSpans.forEach(span => span.style.display = 'none');
+                break;
+            case 'polygon':
+                solSpans.forEach(span => span.style.display = 'none');
+                ethSpans.forEach(span => span.style.display = 'none');
+                maticSpans.forEach(span => span.style.display = 'block');
+                break;
+            default:
+                solSpans.forEach(span => span.style.display = 'none');
+                ethSpans.forEach(span => span.style.display = 'block');
+                maticSpans.forEach(span => span.style.display = 'none');
+        }
+    } catch (error) {
+        console.error('Error updating price display:', error);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        provider = getProvider(); // Initialize provider
+        if (provider) {
+            try {
+                // Try to eagerly connect
+                const resp = await provider.connect({ onlyIfTrusted: true });
+                handleConnection(resp.publicKey.toString());
+            } catch (err) {
+                // Not yet trusted, that's okay!
+                console.log("Not yet trusted - user will need to connect manually first time");
+            }
+
+            // Set up disconnect listener
+            provider.on('disconnect', handleDisconnection);
+        }
+
+        // Add glowing effect initially to the "Connect Wallet" button
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        connectWalletBtn.classList.add('glow');
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+// Function to update wallet status and remove glow effect
+async function updateWalletStatus(publicKey) {
+    const status = document.getElementById('walletStatus');
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    const disconnectWalletBtn = document.getElementById('disconnectWalletBtn');
+    
+    connectWalletBtn.classList.remove('glow');
+    connectWalletBtn.style.display = 'none';
+    disconnectWalletBtn.style.display = 'block'; // Show disconnect button
+    status.textContent = `Connected: ${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+    status.style.display = 'block';
+
+    // Add click handler for disconnect button
+    disconnectWalletBtn.onclick = disconnectWallet;
+}
+
+// Helper function to handle successful connection
+function handleConnection(publicKey) {
+    currentProvider = provider;
+    walletConnected = true;
+    updateWalletStatus(publicKey);
+    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
+    cryptoSubmitBtn.disabled = false;
+    cryptoSubmitBtn.textContent = 'Proceed to Payment';
+}
+
+async function ensureCorrectNetwork(chain) {
+    try {
+        const chainId = CONFIG.CHAIN_IDS[chain];
+        if (!chainId) {
+            throw new Error(`Chain ID for ${chain} not found.`);
+        }
+
+        // Get the current chain ID from the wallet
+        const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+        
+        if (parseInt(currentChainId, 16) !== chainId) {
+            // Prompt the user to switch to the correct network
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: `0x${chainId.toString(16)}` }], // Convert chain ID to hex
+            });
+        }
+    } catch (error) {
+        if (error.code === 4902) {
+            throw new Error(`${chain} network is not added to your wallet.`);
+        }
+        throw new Error(`Please switch your wallet to the ${chain} network.`);
+    }
+}
+
+
+// Helper function to handle disconnection
+async function disconnectWallet() {
+    try {
+        if (state.currentChain === 'solana') {
+            await currentProvider.disconnect();
+        } else {
+            // For EVM wallets, we just reset the state
+            handleDisconnection();
+        }
+    } catch (error) {
+        console.error('Error disconnecting wallet:', error);
+        showError(error.message);
+    }
+}
+
+// Update handleDisconnection function
+function handleDisconnection() {
+    const status = document.getElementById('walletStatus');
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    const disconnectWalletBtn = document.getElementById('disconnectWalletBtn');
+    
+    connectWalletBtn.classList.add('glow');
+    connectWalletBtn.style.display = 'block';
+    disconnectWalletBtn.style.display = 'none'; // Hide disconnect button
+    status.style.display = 'none';
+
+    state.provider = null;
+    currentProvider = null;
+    walletConnected = false;
+    
+    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
+    cryptoSubmitBtn.disabled = true;
+    cryptoSubmitBtn.textContent = 'Connect Wallet to Pay';
+}
+
+async function fetchCryptoPrices() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,ethereum,matic-network&vs_currencies=usd');
         const data = await response.json();
+        
         solanaPrice = data.solana.usd;
-        document.getElementById('solanaPrice').textContent = solanaPrice;
-        updateSolanaPrices();
-    } catch (error) {
-        console.error('Error fetching Solana price:', error);
-        showError("Failed to fetch Solana price. Please refresh.");
-    }
-}
-
-async function fetchEthPrice() {
-    try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
-        const data = await response.json();
         ethPrice = data.ethereum.usd;
-        document.getElementById('ethPrice').textContent = ethPrice;
-        updateEthPrices();
+        maticPrice = data['matic-network'].usd;
+        
+        // Update state
+        state.prices.solana = solanaPrice;
+        state.prices.ethereum = ethPrice;
+        state.prices.matic = maticPrice;
+        
+        // Update display
+        const solanaEl = document.getElementById('solanaPrice');
+        const ethEl = document.getElementById('ethPrice');
+        const maticEl = document.getElementById('maticPrice');
+        
+        if (solanaEl) solanaEl.textContent = solanaPrice.toFixed(2);
+        if (ethEl) ethEl.textContent = ethPrice.toFixed(2);
+        if (maticEl) maticEl.textContent = maticPrice.toFixed(2);
+        
+        updatePriceDisplay();
     } catch (error) {
-        console.error('Error fetching ETH price:', error);
-        showError("Failed to fetch ETH price. Please refresh.");
+        console.error('Error fetching crypto prices:', error);
+        showError("Failed to fetch crypto prices. Please refresh.");
     }
 }
 
-function updateSolanaPrices() {
+function updateCryptoPrices() {
     const polandPriceSOL = (47 / solanaPrice).toFixed(4);
     const worldwidePriceSOL = (65 / solanaPrice).toFixed(4);
-    document.querySelectorAll('.solPrice')[0].textContent = polandPriceSOL;
-    document.querySelectorAll('.solPrice')[1].textContent = worldwidePriceSOL;
-}
-
-function updateEthPrices() {
     const polandPriceETH = (47 / ethPrice).toFixed(4);
     const worldwidePriceETH = (65 / ethPrice).toFixed(4);
+    
+    document.querySelectorAll('.solPrice')[0].textContent = polandPriceSOL;
+    document.querySelectorAll('.solPrice')[1].textContent = worldwidePriceSOL;
     document.querySelectorAll('.ethPrice')[0].textContent = polandPriceETH;
     document.querySelectorAll('.ethPrice')[1].textContent = worldwidePriceETH;
 }
 
-// Payment processing functions
-async function sendPayment(amount) {
-    if (selectedPaymentMethod === 'eth') {
-        return await sendEthPayment(amount);
-    } else {
-        return await sendSolPayment(amount);
+// List of RPC endpoints to try
+const RPC_ENDPOINTS = {
+    solana: [
+        'https://capable-solemn-sailboat.solana-mainnet.quiknode.pro/9c09d2b67638f50dc00ea9b774f26545dc059870',
+        'https://api.mainnet-beta.solana.com',
+        'https://solana-api.projectserum.com',
+        'https://rpc.ankr.com/solana'
+    ],
+    ethereum: [
+        'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+        'https://mainnet.infura.io/v3/your-api-key'
+    ]
+};
+
+async function tryConnection(endpoint) {
+    const connection = new solanaWeb3.Connection(endpoint, 'confirmed');
+    try {
+        await connection.getBlockHeight(); // Simple test request
+        return connection;
+    } catch {
+        return null;
     }
 }
 
-async function sendEthPayment(amount) {
-    try {
-        const signer = web3Provider.getSigner();
-        const amountWei = ethers.utils.parseEther(amount.toString());
+async function getWorkingConnection() {
+    for (const endpoint of CONFIG.RPC_ENDPOINTS.solana) {
+        const connection = new solanaWeb3.Connection(endpoint, 'confirmed');
+        try {
+            await connection.getBlockHeight();
+            return connection;
+        } catch {
+            continue;
+        }
+    }
+    throw new Error("Unable to connect to Solana network. Please try again later.");
+}
 
-        const tx = await signer.sendTransaction({
-            to: SELLER_WALLET_ETH,
-            value: amountWei
+async function sendPayment(amount, chain) {
+    if (state.paymentCurrency === 'usdt') {
+        return await sendUSDTPayment(amount, chain);
+    } else if (["ethereum", "arbitrum", "optimism", "polygon", "base"].includes(chain)) {
+        return await sendEthereumPayment(amount);
+    } else if (chain === "solana") {
+        return await sendSolanaPayment(amount);
+    } else {
+        throw new Error("Unsupported blockchain selected.");
+    }
+}
+
+async function sendUSDTPayment(amount, chain) {
+    if (chain === 'solana') {
+        return await sendSolanaUSDTPayment(amount);
+    } else {
+        return await sendEVMUSDTPayment(amount, chain);
+    }
+}
+
+async function sendEVMUSDTPayment(amount, chain) {
+    try {
+        const usdtAddress = CONFIG.USDT_ADDRESSES[chain];
+        if (!usdtAddress) throw new Error("USDT contract not configured for this chain");
+
+        // USDT has 6 decimals
+        const amountInUnits = BigInt(Math.round(amount * 1e6)).toString(16);
+        
+        // Create contract interaction data
+        const data = `0xa9059cbb${ETH_SELLER_WALLET.slice(2).padStart(64, '0')}${amountInUnits.padStart(64, '0')}`;
+        
+        const transactionParameters = {
+            to: usdtAddress,
+            from: window.ethereum.selectedAddress,
+            data: data
+        };
+
+        const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
         });
 
-        const receipt = await tx.wait();
-        return receipt.transactionHash;
+        return txHash;
     } catch (error) {
-        console.error('ETH Payment error:', error);
-        if (error.code === 'INSUFFICIENT_FUNDS') {
-            throw new Error("Insufficient funds in wallet");
+        console.error('USDT payment error:', error);
+        throw new Error(error.message || "USDT payment failed. Please try again.");
+    }
+}
+
+async function sendSolanaUSDTPayment(amount) {
+    try {
+        const connection = await getWorkingConnection();
+        const usdtMint = new solanaWeb3.PublicKey(CONFIG.USDT_ADDRESSES.solana);
+        
+        // Create token transfer instruction
+        // Note: This is a simplified version. You'll need to handle token accounts properly
+        const transaction = new solanaWeb3.Transaction();
+        // Add proper token program instructions here
+        
+        const signature = await currentProvider.signAndSendTransaction(transaction);
+        return signature.signature;
+    } catch (error) {
+        console.error('Solana USDT payment error:', error);
+        throw error;
+    }
+}
+
+// Add new function for Polygon payments
+async function sendPolygonPayment(amount) {
+    try {
+        if (!window.ethereum) {
+            throw new Error("No Ethereum wallet detected");
+        }
+
+        // For MATIC, use the actual amount without conversion
+        const amountInWei = BigInt(Math.round(amount * 1e18)).toString(16);
+        
+        const transactionParameters = {
+            to: ETH_SELLER_WALLET,
+            from: window.ethereum.selectedAddress,
+            value: '0x' + amountInWei,
+            chainId: '0x89' // Polygon mainnet chainId
+        };
+
+        const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        });
+
+        return txHash;
+    } catch (error) {
+        console.error('Polygon payment error:', error);
+        if (error.message.includes("insufficient")) {
+            throw new Error("Insufficient MATIC in wallet");
         }
         throw new Error(error.message || "Payment failed. Please try again.");
     }
 }
 
-async function sendSolPayment(amount) {
+// Ethereum payment function
+async function sendEthereumPayment(amount, isMatic = false) {
     try {
-        const connection = new solanaWeb3.Connection(
-            'https://capable-solemn-sailboat.solana-mainnet.quiknode.pro/9c09d2b67638f50dc00ea9b774f26545dc059870',
-            'confirmed'
-        );
+        if (!window.ethereum) {
+            throw new Error("No Ethereum wallet detected");
+        }
+
+        const amountInWei = BigInt(Math.round(amount * 1e18)).toString(16);
+        
+        const transactionParameters = {
+            to: ETH_SELLER_WALLET,
+            from: window.ethereum.selectedAddress,
+            value: '0x' + amountInWei,
+            chainId: isMatic ? '0x89' : undefined // Polygon mainnet chainId
+        };
+
+        const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+        });
+
+        return txHash;
+    } catch (error) {
+        console.error('Payment error:', error);
+        if (error.message.includes("insufficient")) {
+            throw new Error(`Insufficient ${isMatic ? 'MATIC' : 'ETH'} in wallet`);
+        }
+        throw new Error(error.message || "Payment failed. Please try again.");
+    }
+}
+
+async function sendEmails(details) {
+    try {
+        // Send email to buyer
+        await emailjs.send("service_1usjzjk", "template_m3pfymc", {
+            to_email: details.email,
+            size: details.size,
+            shipping_address: details.address,
+            amount: details.amount,
+            transaction_id: details.txId
+        });
+
+        // Send email to seller
+        await emailjs.send("service_2wfarny", "template_zk9ragp", {
+            size: details.size,
+            shipping_address: details.address,
+            customer_email: details.email,
+            customer_phone: details.phone,
+            amount: details.amount,
+            transaction_id: details.txId
+        });
+    } catch (error) {
+        console.error('Email error:', error);
+        throw new Error("Failed to send confirmation emails.");
+    }
+}
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 50000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 50000);
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function copyAddress() {
+            const address = "2ep3FcATLGK2TUmpFQrChbgNa5wxc6HF3CHaaPmSvCYm";
+            navigator.clipboard.writeText(address).then(() => {
+                const button = document.querySelector('.copy-btn');
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                button.style.background = 'var(--olive)';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.background = 'var(--royal)';
+                }, 2000);
+            });
+        }
+
+        // Solana wallet connection function
+async function connectSolanaWallet(walletName) {
+    try {
+        let wallet;
+        switch(walletName) {
+            case 'phantom':
+                wallet = window.phantom?.solana;
+                if (!wallet) {
+                    window.open('https://phantom.app/', '_blank');
+                    throw new Error("Please install Phantom wallet");
+                }
+                break;
+            case 'solflare':
+                wallet = window.solflare;
+                if (!wallet?.isSolflare) {
+                    window.open('https://solflare.com/', '_blank');
+                    throw new Error("Please install Solflare wallet");
+                }
+                break;
+            case 'backpack':
+                wallet = window.backpack;
+                if (!wallet?.isBackpack) {
+                    window.open('https://backpack.app/', '_blank');
+                    throw new Error("Please install Backpack wallet");
+                }
+                break;
+        }
+
+        const response = await wallet.connect();
+        currentProvider = wallet;
+        walletConnected = true;
+        handleConnection(response.publicKey.toString());
+        
+        // Set up account change listener
+        wallet.on('accountChanged', (publicKey) => {
+            if (publicKey) {
+                handleConnection(publicKey.toString());
+            } else {
+                handleDisconnection();
+            }
+        });
+    } catch (error) {
+        throw new Error(`Failed to connect ${walletName}: ${error.message}`);
+    }
+}
+
+// Ethereum wallet connection function
+async function connectEthereumWallet(walletName) {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            switch(walletName) {
+                case 'metamask':
+                    window.open('https://metamask.io/', '_blank');
+                    break;
+                case 'rabby':
+                    window.open('https://rabby.io/', '_blank');
+                    break;
+                case 'coinbase':
+                    window.open('https://www.coinbase.com/wallet', '_blank');
+                    break;
+                case 'trust':
+                    window.open('https://trustwallet.com/', '_blank');
+                    break;
+            }
+            throw new Error(`Please install ${walletName} wallet`);
+        }
+
+        let provider;
+        switch(walletName) {
+            case 'metamask':
+                if (!window.ethereum.isMetaMask) {
+                    throw new Error("MetaMask not detected");
+                }
+                provider = window.ethereum;
+                break;
+            case 'rabby':
+                if (!window.ethereum.isRabby) {
+                    throw new Error("Rabby not detected");
+                }
+                provider = window.ethereum;
+                break;
+            case 'coinbase':
+                if (!window.ethereum.isCoinbaseWallet) {
+                    throw new Error("Coinbase Wallet not detected");
+                }
+                provider = window.ethereum;
+                break;
+            case 'trust':
+                if (!window.ethereum.isTrust) {
+                    throw new Error("Trust Wallet not detected");
+                }
+                provider = window.ethereum;
+                break;
+        }
+
+        const accounts = await provider.request({ 
+            method: 'eth_requestAccounts' 
+        });
+        
+        currentProvider = provider;
+        walletConnected = true;
+        updateWalletStatus(accounts[0]);
+
+        // Set up account change listener
+        provider.on('accountsChanged', (accounts) => {
+            if (accounts.length > 0) {
+                handleConnection(accounts[0]);
+            } else {
+                handleDisconnection();
+            }
+        });
+
+        return accounts[0];
+    } catch (error) {
+        throw new Error(`Failed to connect ${walletName}: ${error.message}`);
+    }
+}
+
+// Function to send Solana payment
+async function sendSolanaPayment(amount) {
+    try {
+        const connection = await getWorkingConnection();
+        if (!connection) {
+            throw new Error("Unable to connect to Solana network");
+        }
 
         const transaction = new solanaWeb3.Transaction().add(
             solanaWeb3.SystemProgram.transfer({
@@ -644,127 +1283,28 @@ async function sendSolPayment(amount) {
         transaction.recentBlockhash = blockhash;
         transaction.feePayer = currentProvider.publicKey;
 
-        const { signature } = await currentProvider.signAndSendTransaction(transaction);
-        const confirmation = await connection.confirmTransaction(signature, 'confirmed');
-        
+        const signature = await currentProvider.signAndSendTransaction(transaction);
+        const confirmation = await connection.confirmTransaction(signature.signature, 'confirmed');
+
         if (confirmation.value.err) {
             throw new Error("Transaction failed to confirm");
         }
 
-        return signature;
+        return signature.signature;
     } catch (error) {
-        console.error('SOL Payment error:', error);
-        if (error.message.includes("insufficient")) {
-            throw new Error("Insufficient funds in wallet");
-        }
-        throw new Error(error.message || "Payment failed. Please try again.");
+        console.error('Solana payment error:', error);
+        throw error;
     }
 }
 
-// Email functions
-async function sendEmails(details) {
-    try {
-        // Send email to buyer
-        await emailjs.send(
-            "service_1usjzjk",
-            "template_m3pfymc",
-            {
-                to_email: details.email,
-                size: details.size,
-                shipping_address: details.address,
-                amount: details.cryptoAmount,
-                currency: selectedPaymentMethod.toUpperCase(),
-                transaction_id: details.txId
-            }
-        );
-
-        // Send email to seller
-        await emailjs.send(
-            "service_2wfarny",
-            "template_zk9ragp",
-            {
-                size: details.size,
-                shipping_address: details.address,
-                customer_email: details.email,
-                customer_phone: details.phone,
-                amount: details.cryptoAmount,
-                currency: selectedPaymentMethod.toUpperCase(),
-                transaction_id: details.txId
-            }
-        );
-    } catch (error) {
-        console.error('Email error:', error);
-        throw new Error("Failed to send confirmation emails.");
+function openCryptoModal(product = 'olive-M') {
+    document.getElementById('transparency-modal').style.display = 'block';
+    document.querySelector('.modal-overlay').classList.add('active');
+    
+    // Set selected product
+    if (product) {
+        document.querySelector('select[name="product"]').value = product;
     }
-}
-
-// UI helper functions
-function updateWalletStatus(address) {
-    const status = document.getElementById('walletStatus');
-    const connectWalletBtn = document.getElementById('connectWalletBtn');
-    connectWalletBtn.classList.remove('glow');
-    status.textContent = `Connected: ${address.slice(0, 4)}...${address.slice(-4)}`;
-    connectWalletBtn.style.display = 'none';status.style.display = 'block';
-}
-
-function handleConnection(address) {
-    walletConnected = true;
-    updateWalletStatus(address);
-    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
-    cryptoSubmitBtn.disabled = false;
-    cryptoSubmitBtn.textContent = 'Proceed to Payment';
-}
-
-function handleDisconnection() {
-    const status = document.getElementById('walletStatus');
-    const connectWalletBtn = document.getElementById('connectWalletBtn');
-    connectWalletBtn.classList.add('glow');
-    connectWalletBtn.style.display = 'none';
-    status.style.display = 'block';
-
-    walletConnected = false;
-    currentProvider = null;
-    const cryptoSubmitBtn = document.querySelector('.crypto-submit');
-    cryptoSubmitBtn.disabled = true;
-    cryptoSubmitBtn.textContent = 'Connect Wallet to Pay';
-}
-
-function showError(message) {
-    const errorDiv = document.getElementById('errorMessage');
-    errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
-    setTimeout(() => {
-        errorDiv.style.display = 'none';
-    }, 5000);
-}
-
-function showSuccess(message) {
-    const successDiv = document.getElementById('successMessage');
-    successDiv.textContent = message;
-    successDiv.style.display = 'block';
-    setTimeout(() => {
-        successDiv.style.display = 'none';
-    }, 5000);
-}
-
-function showLoading(show) {
-    document.getElementById('loading').style.display = show ? 'block' : 'none';
-}
-
-function copyAddress() {
-    const address = selectedPaymentMethod === 'eth' ? SELLER_WALLET_ETH : "2ep3FcATLGK2TUmpFQrChbgNa5wxc6HF3CHaaPmSvCYm";
-    navigator.clipboard.writeText(address).then(() => {
-        const button = document.querySelector('.copy-btn');
-        const originalText = button.innerText;
-        button.innerText = 'Copied!';
-        button.style.background = 'var(--olive)';
-        setTimeout(() => {
-            button.innerText = originalText;
-            button.style.background = 'var(--royal)';
-        }, 2000);
-    }).catch(err => {
-        showError("Failed to copy address");
-    });
 }
 
 function closeTransparencyModal() {
@@ -774,131 +1314,342 @@ function closeTransparencyModal() {
 
 function proceedToCryptoPayment() {
     document.getElementById('transparency-modal').style.display = 'none';
-    document.getElementById('crypto-modal').style.display = 'block';
-    document.querySelector('select[name="product"]').value = selectedProduct;
-    if (selectedPaymentMethod === 'eth') {
-        fetchEthPrice();
+    document.getElementById('chain-selection-modal').style.display = 'block';
+}
+
+function selectChain(chain) {
+    state.currentChain = chain;
+    if (chain === 'ethereum') {
+        document.getElementById('chain-selection-modal').style.display = 'none';
+        document.getElementById('l2-selection-modal').style.display = 'block';
     } else {
-        fetchSolanaPrice();
+        document.getElementById('chain-selection-modal').style.display = 'none';
+        setupCurrencySelection(chain);
     }
+}
+
+function selectL2(chain) {
+    state.currentChain = chain;
+    document.getElementById('l2-selection-modal').style.display = 'none';
+    setupCurrencySelection(chain);
+}
+
+function setupCurrencySelection(chain) {
+    // Update native currency image and text
+    const nativeImg = document.getElementById('native-currency-img');
+    const nativeText = document.getElementById('native-currency-text');
+    
+    switch(chain) {
+        case 'solana':
+            nativeImg.src = './solana.png';
+            nativeText.textContent = 'SOL';
+            break;
+        case 'polygon':
+            nativeImg.src = './polygon.png';
+            nativeText.textContent = 'MATIC';
+            break;
+        default:
+            nativeImg.src = './ethereum.png';
+            nativeText.textContent = 'ETH';
+    }
+    
+    document.getElementById('currency-selection-modal').style.display = 'block';
+}
+
+function selectCurrency(type) {
+    state.paymentCurrency = type; // 'native' or 'usdt'
+    document.getElementById('currency-selection-modal').style.display = 'none';
+    document.getElementById('crypto-modal').style.display = 'block';
+    
+    // Show only relevant wallets
+    const walletOptions = document.querySelectorAll('.wallet-option');
+    walletOptions.forEach(option => {
+        const walletName = option.getAttribute('onclick').match(/'(.+?)'/)[1];
+        if (state.currentChain === 'solana') {
+            option.style.display = CONFIG.WALLETS.solana.includes(walletName) ? 'flex' : 'none';
+        } else {
+            option.style.display = CONFIG.WALLETS.ethereum.includes(walletName) ? 'flex' : 'none';
+        }
+    });
+
+    fetchCryptoPrices();
+}
+
+function closeCurrencyModal() {
+    document.getElementById('currency-selection-modal').style.display = 'none';
+    document.querySelector('.modal-overlay').classList.remove('active');
+}
+
+// Add L2 modal close function
+function closeL2Modal() {
+    document.getElementById('l2-selection-modal').style.display = 'none';
+    document.querySelector('.modal-overlay').classList.remove('active');
+}
+
+function closeChainModal() {
+    document.getElementById('chain-selection-modal').style.display = 'none';
+    document.querySelector('.modal-overlay').classList.remove('active');
 }
 
 function closeCryptoModal() {
     document.getElementById('crypto-modal').style.display = 'none';
     document.querySelector('.modal-overlay').classList.remove('active');
-    handleDisconnection();
 }
 
-// Form submission handler
-document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!walletConnected) {
-        showError("Please connect your wallet first!");
-        return;
-    }
+// Function to open modal
+function openModal(modalId) {
+    const modal = document.getElementById(`${modalId}-modal`);
+    const modalOverlay = document.querySelector('.modal-overlay');
+    modalOverlay.classList.add('active');
+    modal.classList.add('active');
+}
 
-    showLoading(true);
-    const formData = new FormData(e.target);
-    const shipping = formData.get('shipping');
-    const price = shipping === 'poland' ? 47 : 65;
+// Function to close all modals
+function closeAllModals() {
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const modals = document.querySelectorAll('.modal');
+    modalOverlay.classList.remove('active');
+    modals.forEach(modal => modal.classList.remove('active'));
+}
+
+// Function to open the summary modal
+function openSummaryModal(details) {
+    document.getElementById('summary-product').textContent = `Product: ${details.product}`;
+    document.getElementById('summary-shipping').textContent = `Shipping: ${details.shipping}`;
+    document.getElementById('summary-price').textContent = `Total Price: ${details.price}`;
+    document.getElementById('summary-currency').textContent = `Currency: ${details.currency}`;
+    document.getElementById('summary-amount').textContent = `Amount: ${details.amount}`;
+
+    const modal = document.getElementById('summary-modal');
+    modal.classList.add('active');
+    document.querySelector('.modal-overlay').classList.add('active');
+}
+
+let currentProductIndex = 0;
+const totalProducts = 4;
+
+function showProduct(index) {
+    const products = document.querySelectorAll('.product-card');
+    const dots = document.querySelectorAll('.dot');
     
-    let amount;
-    if (selectedPaymentMethod === 'eth') {
-        amount = price / ethPrice;
-    } else {
-        amount = price / solanaPrice;
+    products.forEach(product => product.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    products[index].classList.add('active');
+    dots[index].classList.add('active');
+}
+
+function nextProduct() {
+    currentProductIndex = (currentProductIndex + 1) % totalProducts;
+    showProduct(currentProductIndex);
+}
+
+function prevProduct() {
+    currentProductIndex = (currentProductIndex - 1 + totalProducts) % totalProducts;
+    showProduct(currentProductIndex);
+}
+
+function gotoProduct(index) {
+    currentProductIndex = index;
+    showProduct(currentProductIndex);
+}
+
+// Add touch swipe functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    carousel.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const swipeLength = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeLength) > swipeThreshold) {
+            if (swipeLength > 0) {
+                prevProduct();
+            } else {
+                nextProduct();
+            }
+        }
     }
-    
+});
+
+async function confirmPayment() {
     try {
+        closeSummaryModal();
+        showLoading(true);
+
+        const formData = new FormData(document.getElementById('cryptoForm'));
+        const shipping = formData.get('shipping');
+        const price = shipping === 'poland' ? 47 : 65;
+
+        // Calculate amount based on payment currency
+        let amount;
+        if (state.paymentCurrency === 'usdt') {
+            amount = price; // Direct USD amount for USDT
+        } else if (state.currentChain === 'solana') {
+            amount = price / solanaPrice;
+        } else if (state.currentChain === 'polygon') {
+            amount = price / maticPrice;
+        } else {
+            amount = price / ethPrice;
+        }
+
+        // Ensure correct network for EVM chains
+        if (state.currentChain !== 'solana') {
+            await ensureCorrectNetwork(state.currentChain);
+        }
+
         // Process payment
-        const txId = await sendPayment(amount);
+        const txId = await sendPayment(amount, state.currentChain);
 
         // Prepare details for emails
         const paymentDetails = {
             size: formData.get('product').split('-')[1],
-            shipping: formData.get('shipping'),
+            shipping: shipping,
             email: formData.get('email'),
             address: formData.get('address'),
             phone: formData.get('phone'),
             price: price,
-            cryptoAmount: amount,
+            amount: amount,
+            currency: state.currentChain === 'polygon' ? 'MATIC' : 
+                     state.currentChain === 'solana' ? 'SOL' : 'ETH',
             txId: txId
         };
 
-        // Send confirmation emails
         await sendEmails(paymentDetails);
-
         showSuccess(`Payment successful! Transaction ID: ${txId}`);
         
-        // Close modal after success
         setTimeout(() => {
             closeCryptoModal();
         }, 5000);
-        
     } catch (error) {
         showError(error.message);
     } finally {
         showLoading(false);
     }
+}
+
+// Function to close the summary modal
+function closeSummaryModal() {
+    const modal = document.getElementById('summary-modal');
+    const overlay = document.querySelector('.modal-overlay');
+
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+}
+
+document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!walletConnected) {
+        showError("Please connect your wallet first!");
+        return;
+    }
+
+    const formData = new FormData(e.target);
+    const shipping = formData.get('shipping');
+    const price = shipping === 'poland' ? 47 : 65;
+
+    try {
+        // Calculate amount based on selected chain
+        let amount;
+        let currencySymbol;
+        
+        switch(state.currentChain) {
+            case 'solana':
+                if (!solanaPrice) throw new Error("Solana price not available. Please refresh.");
+                amount = price / solanaPrice;
+                currencySymbol = 'SOL';
+                break;
+            case 'polygon':
+                if (!maticPrice) throw new Error("MATIC price not available. Please refresh.");
+                amount = price / maticPrice;
+                currencySymbol = 'MATIC';
+                break;
+            default: // ethereum and other L2s
+                if (!ethPrice) throw new Error("Ethereum price not available. Please refresh.");
+                amount = price / ethPrice;
+                currencySymbol = 'ETH';
+                break;
+        }
+
+        if (!amount || amount === Infinity) {
+            throw new Error("Invalid payment amount calculated. Please refresh and try again.");
+        }
+
+        // Prepare payment details for summary
+        const paymentDetails = {
+            product: formData.get('product'),
+            shipping: shipping === 'poland' ? 'Poland' : 'Worldwide',
+            price: `$${price} USD`,
+            amount: `${amount.toFixed(4)} ${currencySymbol}`,
+            currency: currencySymbol
+        };
+
+        // Show the summary modal
+        openSummaryModal(paymentDetails);
+    } catch (error) {
+        showError(error.message);
+    }
 });
 
-// Price update on shipping change
-function updatePrice() {
-    const shippingSelect = document.querySelector('select[name="shipping"]');
-    const polandPrice = document.getElementById('polandPrice');
-    const worldwidePrice = document.getElementById('worldwidePrice');
-    
-    if (shippingSelect.value === 'poland') {
-        polandPrice.classList.add('active');
-        worldwidePrice.classList.remove('active');
+// Function to calculate the payment amount based on the selected blockchain
+function calculateAmount(price, chain) {
+    if (state.paymentCurrency === 'usdt') {
+        return price; // Direct USD amount for USDT
+    } else if (chain === "polygon") {
+        if (!maticPrice) throw new Error("MATIC price not available. Please refresh.");
+        return price / maticPrice;
+    } else if (["ethereum", "arbitrum", "optimism", "base"].includes(chain)) {
+        if (!ethPrice) throw new Error("Ethereum price not available. Please refresh.");
+        return price / ethPrice;
+    } else if (chain === "solana") {
+        if (!solanaPrice) throw new Error("Solana price not available. Please refresh.");
+        return price / solanaPrice;
     } else {
-        polandPrice.classList.remove('active');
-        worldwidePrice.classList.add('active');
+        throw new Error("Unsupported blockchain selected.");
     }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // Initialize providers
-        if (typeof window.ethereum !== 'undefined') {
-            web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
-        
-        provider = getProvider();
-        
-        // Add event listeners for wallet changes
-        if (window.ethereum) {
-            window.ethereum.on('accountsChanged', (accounts) => {
-                if (accounts.length > 0) {
-                    handleConnection(accounts[0]);
-                } else {
-                    handleDisconnection();
-                }
-            });
-        }
-        
-        if (provider) {
-            provider.on('disconnect', handleDisconnection);
-            
-            try {
-                const resp = await provider.connect({ onlyIfTrusted: true });
-                handleConnection(resp.publicKey.toString());
-            } catch (err) {
-                console.log("Not yet trusted - user will need to connect manually first time");
-            }
-        }
 
-        // Add glowing effect to connect button
-        const connectWalletBtn = document.getElementById('connectWalletBtn');
-        connectWalletBtn.classList.add('glow');
-        
-    } catch (error) {
-        console.error('Initialization error:', error);
-    }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const prevButton = document.querySelector('.prev-button');
+    const nextButton = document.querySelector('.next-button');
+    
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            updateArtGallery();
+        }
+    });
+    
+    nextButton.addEventListener('click', () => {
+        if ((currentPage + 1) * imagesPerPage < artImages.length) {
+            currentPage++;
+            updateArtGallery();
+        }
+    });
+
+    // Initialize gallery when art modal opens
+    const artButton = document.querySelector('[data-modal="art"]');
+    artButton.addEventListener('click', () => {
+        currentPage = 0;
+        updateArtGallery();
+    });
 });
-</script>
+
+
 
     </script>
 </body>
