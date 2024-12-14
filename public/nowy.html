@@ -1335,11 +1335,12 @@ function selectL2(chain) {
 }
 
 function setupCurrencySelection(chain) {
-    // Update native currency image and text
     const nativeImg = document.getElementById('native-currency-img');
     const nativeText = document.getElementById('native-currency-text');
+    const currencyModal = document.getElementById('currency-selection-modal');
     
-    switch(chain) {
+    // Set native currency details based on chain
+    switch (chain) {
         case 'solana':
             nativeImg.src = './solana.png';
             nativeText.textContent = 'SOL';
@@ -1352,8 +1353,48 @@ function setupCurrencySelection(chain) {
             nativeImg.src = './ethereum.png';
             nativeText.textContent = 'ETH';
     }
-    
-    document.getElementById('currency-selection-modal').style.display = 'block';
+
+    // Find the USDT button and its container
+    const usdtButton = document.querySelector("button[onclick=\"selectCurrency('usdt')\"]");
+    if (!usdtButton) return; // Guard clause if button not found
+
+    // Remove any existing unavailable message
+    const existingMsg = usdtButton.parentNode.querySelector('.unavailable-msg');
+    if (existingMsg) {
+        existingMsg.remove();
+    }
+
+    if (chain === 'solana') {
+        // Disable USDT for Solana
+        usdtButton.style.background = '#ccc';
+        usdtButton.style.cursor = 'not-allowed';
+        usdtButton.onclick = (e) => {
+            e.preventDefault(); // Prevent any click action
+            return false;
+        };
+
+        // Add unavailable message with a specific class
+        const unavailableMsg = document.createElement('div');
+        unavailableMsg.className = 'unavailable-msg';
+        unavailableMsg.textContent = 'USDT for Solana is currently unavailable';
+        unavailableMsg.style.color = 'red';
+        unavailableMsg.style.fontSize = '0.8rem';
+        unavailableMsg.style.textAlign = 'center';
+        unavailableMsg.style.marginTop = '5px';
+        
+        // Only append if there isn't already a message
+        if (!usdtButton.parentNode.querySelector('.unavailable-msg')) {
+            usdtButton.parentNode.appendChild(unavailableMsg);
+        }
+    } else {
+        // Enable USDT for other chains
+        usdtButton.style.background = 'var(--royal)';
+        usdtButton.style.cursor = 'pointer';
+        usdtButton.onclick = () => selectCurrency('usdt');
+    }
+
+    // Show the currency selection modal
+    currencyModal.style.display = 'block';
 }
 
 function selectCurrency(type) {
